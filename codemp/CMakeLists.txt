@@ -456,6 +456,16 @@ if(BuildMPEngine)
 	source_group("client" FILES ${MPEngineClientFiles})
 	set(MPEngineFiles ${MPEngineFiles} ${MPEngineClientFiles})
 
+	set(MPEngineMppFiles
+		"${MPDir}/multiplugin/mpp.cpp"
+    		"${MPDir}/multiplugin/mppGame.cpp"
+    		"${MPDir}/multiplugin/mppImports.cpp"
+    		"${MPDir}/multiplugin/mppPlugin.cpp"
+    		"${MPDir}/multiplugin/mppSystem.cpp"
+		)
+	source_group("MultiPlugin" FILES ${MPEngineMppFiles})
+	set(MPEngineFiles ${MPEngineFiles} ${MPEngineMppFiles})
+
 	set(MPEngineRatlFiles
 		"${MPDir}/Ratl/bits_vs.h"
 		"${MPDir}/Ratl/ratl_common.h"

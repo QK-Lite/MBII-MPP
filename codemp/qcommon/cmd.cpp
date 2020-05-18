@@ -350,8 +350,8 @@ typedef struct cmd_function_s
 
 
 
-static	int			cmd_argc;
-static	char		*cmd_argv[MAX_STRING_TOKENS];		// points into cmd_tokenized
+int					cmd_argc;
+char				*cmd_argv[MAX_STRING_TOKENS];		// points into cmd_tokenized
 static	char		cmd_tokenized[BIG_INFO_STRING+MAX_STRING_TOKENS];	// will have 0 bytes inserted
 static	char		cmd_cmd[BIG_INFO_STRING]; // the original command we received (no token processing)
 

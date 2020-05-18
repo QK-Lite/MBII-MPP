@@ -24,10 +24,12 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#ifdef _CGAME
 #include "qcommon/q_shared.h"
 #include "rd-common/tr_types.h"
 #include "game/bg_public.h"
 #include "cg_public.h"
+#endif
 
 // The entire cgame module is unloaded and reloaded on each level change,
 // so there is NO persistant data between levels on the client side.
@@ -73,7 +75,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #define STAT_MINUS			10	// num frame for '-' stats digit
 
 #define	ICON_SIZE			48
+#ifdef _CGAME
 #define	CHAR_WIDTH			32
+#endif
 #define	CHAR_HEIGHT			48
 #define	TEXT_ICON_SPACE		4
 
@@ -1638,6 +1642,7 @@ typedef struct siegeExtended_s
 	int			lastUpdated;
 } siegeExtended_t;
 
+#ifdef _CGAME
 //keep an entry available for each client
 extern siegeExtended_t cg_siegeExtendedData[MAX_CLIENTS];
 
@@ -2072,3 +2077,4 @@ Ghoul2 Insert End
 */
 
 extern cgameImport_t *trap;
+#endif
