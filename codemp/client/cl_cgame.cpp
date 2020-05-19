@@ -757,7 +757,7 @@ void CL_SetCGameTime( void ) {
 		int tn;
 
 		tn = cl_timeNudge->integer;
-#ifdef _DEBUG
+#if defined PRIV_CLIENT || defined _DEBUG
 		if (tn<-900) {
 			tn = -900;
 		} else if (tn>900) {

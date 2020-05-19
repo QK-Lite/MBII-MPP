@@ -1536,9 +1536,16 @@ void CL_WritePacket( void ) {
 	// all the cmds will make it to the server
 	if ( cl_packetdup->integer < 0 ) {
 		Cvar_Set( "cl_packetdup", "0" );
+#ifdef PRIV_CLIENT
+	} else if ( cl_packetdup->integer > 1000 ) {
+		Cvar_Set( "cl_packetdup", "1000" );
+	}
+#else
 	} else if ( cl_packetdup->integer > 5 ) {
 		Cvar_Set( "cl_packetdup", "5" );
 	}
+#endif
+
 	oldPacketNum = (clc.netchan.outgoingSequence - 1 - cl_packetdup->integer) & PACKET_MASK;
 	count = cl.cmdNumber - cl.outPackets[ oldPacketNum ].p_cmdNumber;
 	if ( count > MAX_PACKET_USERCMDS ) {
