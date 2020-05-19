@@ -39,8 +39,10 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 qboolean stdinIsATTY = qfalse;
 
+#ifndef _PORTABLE_VERSION
 // Used to determine where to store user-specific files
 static char homePath[ MAX_OSPATH ] = { 0 };
+#endif
 
 void Sys_PlatformInit( void )
 {
@@ -471,6 +473,10 @@ char *Sys_DefaultHomePath(void)
 #else
 char *Sys_DefaultHomePath(void)
 {
+#if defined(_PORTABLE_VERSION)
+	Com_Printf( "Portable install requested, skipping homepath support\n" );
+	return NULL;
+#else
 	char *p;
 
 	if ( !homePath[0] )
@@ -499,6 +505,7 @@ char *Sys_DefaultHomePath(void)
 	}
 
 	return homePath;
+#endif // _PORTABLE_VERSION
 }
 #endif
 
