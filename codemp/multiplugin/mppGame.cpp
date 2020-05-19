@@ -119,7 +119,7 @@ cmd_t *mppLocateCommand(char *name)
 }
 
 /**************************************************
-* mppLocateCommand
+* mppLocateCvar
 *
 * Locates the provided cvar by string reference in
 * the engine controllable variable table. Be sure
@@ -136,7 +136,7 @@ cvar_t *mppLocateCvar(char *name)
 /**************************************************
 * mppRawTextCalculateDraw
 *
-* Calculates the position of the text and renders is.
+* Calculates the position of the text and renders it.
 **************************************************/
 
 void mppRawTextCalculateDraw( char *lpString, float x, float y, float fScale, int iFont, int iLines, TextAlign align )

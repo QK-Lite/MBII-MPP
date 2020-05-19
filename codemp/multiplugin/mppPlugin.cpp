@@ -23,6 +23,7 @@ intptr_t CGMainCall(int command, intptr_t arg0, intptr_t arg1, intptr_t arg2, in
 #define MPP_INITIALIZED			(MPP_GOT_CURRENTORIGIN | MPP_GOT_CURRENTVALID | MPP_GOT_CLIENTINFO | MPP_GOT_REFDEF | MPP_GOT_SNAP | MPP_GOT_CG | MPP_GOT_CGS | MPP_GOT_ENTITIES)
 static int mppState = 0;
 
+#ifdef MPP_USE_PLUGINS
 /**************************************************
 * mppPluginInit
 *
@@ -114,6 +115,7 @@ void mppPluginInit( MultiPlugin_t *pPlugin )
 	pPlugin->vectoangles				= vectoangles;
 	pPlugin->VectorNormalize			= VectorNormalize;
 }
+#endif
 
 /**************************************************
 * mppPluginCGMain
@@ -138,7 +140,9 @@ int mppPluginCGMain( int cmd, int arg0, int arg1, int arg2, int arg3, int arg4, 
 	{
 		case CG_INIT:
 		{
+#ifdef MPP_USE_PLUGINS
 			LoadPlugins();
+#endif
 			mppScreenshotDetour();
 			break;
 		}
@@ -147,7 +151,7 @@ int mppPluginCGMain( int cmd, int arg0, int arg1, int arg2, int arg3, int arg4, 
 		{
 			char *cmd = Cmd_Argv( 0 );
 
-			if ( Q_stricmp( cmd, "toggleVisual" ) == 0 )
+			if ( Q_stricmp( cmd, "mpp_toggleVisual" ) == 0 )
 			{
 				if ( MultiPlugin.inScreenshot )
 				{
@@ -226,7 +230,9 @@ int mppPluginCGMain( int cmd, int arg0, int arg1, int arg2, int arg3, int arg4, 
 
 	if (cmd == CG_SHUTDOWN) {
 		mppState = 0;
+#ifdef MPP_USE_PLUGINS
 		UnloadPlugins();
+#endif
 	}
 
 	return (MultiPlugin.mainRetValue != MultiPlugin.noBreakCode ) ? MultiPlugin.mainRetValue : retFlag;
@@ -429,6 +435,7 @@ int mppPluginCGSystem( int *arg )
 	return (MultiPlugin.sysRetValue != MultiPlugin.noBreakCode ) ? MultiPlugin.sysRetValue : retFlag;
 }
 
+#ifdef MPP_USE_PLUGINS
 /**************************************************
 * mppPluginLoad
 * 
@@ -487,3 +494,4 @@ void mppPluginLoad(char *zModule)
 		free(newModule);
 	}
 }
+#endif

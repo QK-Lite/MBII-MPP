@@ -139,8 +139,10 @@ void			 UnloadPlugins();
 * and so forth.
 **************************************************/
 
+#ifdef MPP_USE_PLUGINS
 void			 mppPluginInit(MultiPlugin_t *pPlugin);
 void			 mppPluginLoad(char *zModule);
+#endif
 int				 mppPluginCGMain(int cmd, int arg0 = 0, int arg1 = 0, int arg2 = 0, int arg3 = 0, int arg4 = 0, int arg5 = 0, int arg6 = 0, int arg7 = 0, int arg8 = 0, int arg9 = 0, int arg10 = 0, int arg11 = 0);
 int				 mppPluginCGSystem(int *arg);
 int				 mppPluginUIMain(int cmd, int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11);

@@ -8,10 +8,12 @@
 
 #include <multiplugin/mppHeader.h>
 
+#ifdef MPP_USE_PLUGINS
 #ifdef _MSC_VER
 	#define LIBRARY_EXT ".dll"
 #else
 	#define LIBRARY_EXT ".so"
+#endif
 #endif
 
 /**************************************************
@@ -37,6 +39,7 @@ qboolean			currentValid[MAX_GENTITIES];
 refdef_t			refdef;
 snapshot_t			snap;
 
+#ifdef MPP_USE_PLUGINS
 /**************************************************
 * LoadPlugins
 *
@@ -84,12 +87,15 @@ void UnloadPlugins()
 	}
 	MultiModule = NULL;
 }
+#endif
 
 static qboolean mppIsInitialized = qfalse;
 void mppInit() {
 	if (mppIsInitialized == qtrue) return;
 	mppIsInitialized = qtrue;
+#ifdef MPP_USE_PLUGINS
 	mppPluginInit(&MultiPlugin);
+#endif
 	mppSystemInit(&MultiSystem);
 	MultiPlugin.System = &MultiSystem;
 	MultiModule = NULL;
@@ -100,5 +106,7 @@ void mppInit() {
 void mppDestroy() {
 	if (mppIsInitialized == qfalse) return;
 	mppIsInitialized = qfalse;
+#ifdef MPP_USE_PLUGINS
 	UnloadPlugins();
+#endif
 }
