@@ -2134,10 +2134,20 @@ static float avgFrametime=0.0;
 extern void SE_CheckForLanguageUpdates(void);
 void CL_Frame ( int msec ) {
 	qboolean takeVideoFrame = qfalse;
+#ifdef PRIV_CLIENT
+	qboolean render = qfalse;
+#endif
 
 	if ( !com_cl_running->integer ) {
 		return;
 	}
+
+#ifdef PRIV_CLIENT
+	if ((com_renderfps->integer <= 0) || ((cls.realtime >= cls.lastDrawTime + (1000 / com_renderfps->integer)))) {
+		render = qtrue;
+		cls.lastDrawTime = cls.realtime;
+	}
+#endif
 
 	SE_CheckForLanguageUpdates();	// will take zero time to execute unless language changes, then will reload strings.
 									//	of course this still doesn't work for menus...
@@ -2202,11 +2212,17 @@ void CL_Frame ( int msec ) {
 	// decide on the serverTime to render
 	CL_SetCGameTime();
 
+#ifdef PRIV_CLIENT
+	if (render) {
+#endif
 	// update the screen
 	SCR_UpdateScreen();
 
 	// update audio
 	S_Update();
+#ifdef PRIV_CLIENT
+	}
+#endif
 
 	// advance local effects for next frame
 	SCR_RunCinematic();

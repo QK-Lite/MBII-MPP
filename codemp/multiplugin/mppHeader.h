@@ -127,8 +127,10 @@ void			 Com_StringEscape(char *in, char *out);
 
 void			 mppInit();
 void			 mppDestroy();
+#ifdef MPP_USE_PLUGINS
 void			 LoadPlugins();
 void			 UnloadPlugins();
+#endif
 
 /**************************************************
 * mppPlugin

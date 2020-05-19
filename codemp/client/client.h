@@ -299,6 +299,9 @@ typedef struct clientStatic_s {
 
 	int			realtime;			// ignores pause
 	int			realFrametime;		// ignoring pause, so console always works
+#ifdef PRIV_CLIENT
+	int			lastDrawTime;
+#endif
 
 	int			numlocalservers;
 	serverInfo_t	localServers[MAX_OTHER_SERVERS];

@@ -71,6 +71,10 @@ cvar_t	*com_busyWait;
 
 cvar_t *com_affinity;
 
+#ifdef PRIV_CLIENT
+cvar_t	*com_renderfps;
+#endif
+
 // com_speeds times
 int		time_game;
 int		time_frontend;		// renderer frontend time
@@ -1238,6 +1242,10 @@ void Com_Init( char *commandLine ) {
 
 		com_affinity = Cvar_Get( "com_affinity", "0", CVAR_ARCHIVE );
 		com_busyWait = Cvar_Get( "com_busyWait", "0", CVAR_ARCHIVE );
+
+#ifdef PRIV_CLIENT
+		com_renderfps = Cvar_Get( "com_renderfps", "0", CVAR_ARCHIVE );
+#endif
 
 		com_bootlogo = Cvar_Get( "com_bootlogo", "1", CVAR_ARCHIVE, "Show intro movies" );
 
