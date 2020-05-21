@@ -53,7 +53,7 @@ extern botlib_export_t *botlib_export;
 
 // cgame interface
 static cgameExport_t *cge; // cgame export table
-static vm_t *cgvm; // cgame vm, valid for legacy and new api
+vm_t *cgvm; // cgame vm, valid for legacy and new api
 
 //
 // cgame vmMain calls

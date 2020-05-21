@@ -48,23 +48,25 @@ snapshot_t			snap;
 * the initialization call is coming in.
 **************************************************/
 
-//extern vm_t *cgvm;
+extern vm_t *cgvm;
 void LoadPlugins()
 {
 		int numFiles;
 		char ** filesList = Sys_ListFiles("plugins", LIBRARY_EXT, "", &numFiles, qfalse);
 		
 		for (int i = 2; i < numFiles; i++) { // Ignore "." and ".."
-		/*
+		
 			if (cgvm->isLegacy) {
 				if (!Q_stricmpn(filesList[i]+1, "legacy_", 7)) {
 					mppPluginLoad(va("plugins/%s", filesList[i]+1));
 				}
 			}
-		*/
+		
 			if (!Q_stricmpn(filesList[i]+1, "openjk_", 7)) {
 				mppPluginLoad(va("plugins/%s", filesList[i]+1));
 			}
+
+			Com_Printf("^3MultiPlugin++: Loaded %s plugin\n", filesList[i] + 1);
 		}
 
 		Sys_FreeFileList(filesList);
