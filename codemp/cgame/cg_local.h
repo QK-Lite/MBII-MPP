@@ -2076,5 +2076,7 @@ void	CG_SetLightstyle (int i);
 Ghoul2 Insert End
 */
 
+#ifndef NO_CG_TRAP
 extern cgameImport_t *trap;
+#endif
 #endif
